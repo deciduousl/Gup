@@ -6,7 +6,7 @@ ThinkPHP 5.0 PHPExcel
 [![Latest Unstable Version](https://poser.pugx.org/topthink/think/v/unstable)](https://packagist.org/packages/topthink/think)
 [![License](https://poser.pugx.org/topthink/think/license)](https://packagist.org/packages/topthink/think)
 
-1.简介：股票信息爬虫，基于雪球网第三方类库而成的一个获取多支股票基本信息，基础页面PC端，手机通用，数据可作用于统计和分析选股策略。目前只测试了当日收盘后的数据无误（有错误欢迎小伙伴来纠正），当日9:00-15：00交易中，理论上也是可以获取的，获取的数据都是实时的。
+1.简介：股票信息爬虫，基于雪球网的获取多支股票基本信息，基础页面PC端，手机通用，数据可作用于统计和分析选股策略。目前只测试了当日收盘后的数据无误（有错误欢迎小伙伴来纠正），当日9:00-15：00交易中，理论上也是可以获取的，获取的数据都是实时的，还未测试。
 <br><br>
 2.试用网址链接：http://deciduous.top/gup/public/index.php/home/gup/get
 <br><br>
