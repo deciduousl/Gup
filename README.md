@@ -6,11 +6,11 @@ ThinkPHP 5.0 PHPExcel
 [![Latest Unstable Version](https://poser.pugx.org/topthink/think/v/unstable)](https://packagist.org/packages/topthink/think)
 [![License](https://poser.pugx.org/topthink/think/license)](https://packagist.org/packages/topthink/think)
 
-股票信息爬虫，基于ThinkPHP5.0版本与PHPExcel第三方类库而成的一个获取多支股票基本信息。数据可作用于统计和分析选股策略。
+1.股票信息爬虫，基于ThinkPHP5.0版本与PHPExcel第三方类库而成的一个获取多支股票基本信息。数据可作用于统计和分析选股策略。
 <br>
-结果数据格式分两种，1为Excel表格格式，2为数据库。可自行选择代码中注释部分。源码在application\home\controller\gup.php中。
+2.结果数据格式分两种，1为Excel表格格式，2为数据库。可自行选择代码中注释部分。源码在application\home\controller\gup.php中。
 <br>
-单股信息包含：详细代码，名称，获取数据时间,当前价格,涨跌额,涨跌幅,振幅,量比,成交额,今开,最高,最低,52周最高,52周最低,涨停,跌停,昨收,换手,代码,货币单位,价格2,股息(TTM),股息率(TTM),每股收益,交易所,流通值,流通股,总市值,每股净资产,市净率,市盈率(TTM),总股本,当日获取数据时状态：交易中,休市中,已收盘。
+3.单股信息包含：详细代码，名称，获取数据时间,当前价格,涨跌额,涨跌幅,振幅,量比,成交额,今开,最高,最低,52周最高,52周最低,涨停,跌停,昨收,换手,代码,货币单位,价格2,股息(TTM),股息率(TTM),每股收益,交易所,流通值,流通股,总市值,每股净资产,市净率,市盈率(TTM),总股本,当日获取数据时状态：交易中,休市中,已收盘。
 
 ThinkPHP5在保持快速开发和大道至简的核心理念不变的同时，PHP版本要求提升到5.4，对已有的CBD模式做了更深的强化，优化核心，减少依赖，基于全新的架构思想和命名空间实现，是ThinkPHP突破原有框架思路的颠覆之作，其主要特性包括：
 
