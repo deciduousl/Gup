@@ -61,6 +61,7 @@ ps:有疑问或者有可改进的地方，可加群互相探讨。Q群：9648681
 
 同时也欢迎小伙伴进群互相交流分享创业经验
 
-分享不易，觉得有用的家人们，点点小⭐⭐，打赏打赏~!
-[198cfaacc2bb927a0b61485aab8e35b](https://user-images.githubusercontent.com/34228330/162997106-b8ec521f-c157-449c-862a-53c9a65e9da5.jpg)
+分享不易，觉得有用的家人们，点点小⭐⭐，打赏打赏~
+![198cfaacc2bb927a0b61485aab8e35b](https://user-images.githubusercontent.com/34228330/162998667-9ef2d082-13c8-4b44-910c-632284e365e6.jpg)
+
 
