@@ -6,9 +6,9 @@ ThinkPHP 5.0 PHPExcel
 [![Latest Unstable Version](https://poser.pugx.org/topthink/think/v/unstable)](https://packagist.org/packages/topthink/think)
 [![License](https://poser.pugx.org/topthink/think/license)](https://packagist.org/packages/topthink/think)
 
-1.简介：股票信息爬虫，基于雪球网的获取多支股票基本信息，基础页面PC端，手机通用，数据可作用于统计和分析选股策略。目前只测试了当日收盘后的数据无误（有错误欢迎小伙伴来纠正），当日9:00-15：00交易中，理论上也是可以获取的，获取的数据都是实时的，还未测试。
+1.简介：股票信息爬虫，基于雪球网的获取多支股票基本信息，基础页面PC端，手机通用，数据可作用于统计和分析选股策略。目前只测试了当日收盘后的数据无误（有错误欢迎小伙伴来纠正），当日9:00-15：00交易中，理论上也是可以获取的，获取的数据都是实时的，还未测试。觉得有用的小伙伴帮忙点点小⭐⭐，谢谢拉~
 <br><br>
-2.试用网址链接：http://deciduous.top/gup/public/index.php/home/gup/get
+2.爬虫线上链接：http://deciduous.top/gup/public/index.php/home/gup/get
 <br><br>
 3.技术栈：ThinkPHP5.0 PHPExcel Html JQ 主要代码在application\home\controller\gup.php中，注释已加。可以直接该文件中get接口处添加修改股票代码，获取自己想要获取的股票信息。
 <br><br>
@@ -57,6 +57,10 @@ www  WEB部署目录（或者子目录）
 ├─README.md             README 文件
 ├─think                 命令行入口文件
 ~~~
-ps:源码仅供各位参考学习使用 望不要商用 谢谢！ 有疑问或者有可改进的地方，可加群互相探讨，看到会第一时间回复。Q群：964868143
+ps:有疑问或者有可改进的地方，可加群互相探讨。Q群：964868143
 
 同时也欢迎小伙伴进群互相交流分享创业经验
+
+分享不易，觉得有用的家人们，点点小⭐⭐，打赏打赏~!
+[198cfaacc2bb927a0b61485aab8e35b](https://user-images.githubusercontent.com/34228330/162997106-b8ec521f-c157-449c-862a-53c9a65e9da5.jpg)
+
