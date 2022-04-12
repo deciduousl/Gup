@@ -10,9 +10,9 @@ ThinkPHP 5.0 PHPExcel
 <br><br>
 2.试用网址链接：http://deciduous.top/gup/public/index.php/home/gup/get
 <br><br>
-3.技术栈：ThinkPHP5.0 PHPExcel Html JQ
+3.技术栈：ThinkPHP5.0 PHPExcel Html JQ 主要代码在application\home\controller\gup.php中，注释已加。可以直接该文件中get接口处添加修改股票代码，获取自己想要获取的股票信息。
 <br><br>
-4.结果数据格式分两种，1为Excel表格格式，2为数据库。可自行选择代码中注释部分。源码在application\home\controller\gup.php中，注释已加。可以直接该文件中get接口处添加修改股票代码，获取自己想要获取的股票信息。
+4.结果数据格式分两种，1为Excel表格格式，2为数据库。可自行选择代码中注释部分。数据库文件也在上述库中，ms_gup.sql
 <br><br>
 5.单股信息包含：详细代码，名称，获取数据时间,当前价格,涨跌额,涨跌幅,振幅,量比,成交额,今开,最高,最低,52周最高,52周最低,涨停,跌停,昨收,换手,代码,货币单位,价格2,股息(TTM),股息率(TTM),每股收益,交易所,流通值,流通股,总市值,每股净资产,市净率,市盈率(TTM),总股本,当日获取数据时状态：交易中,休市中,已收盘。
 
