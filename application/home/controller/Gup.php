@@ -271,7 +271,7 @@ class Gup extends Controller{
         $_fileName = iconv("utf-8", "gb2312", $filename);   //转码  
 
 	    // $objWriter->move(ROOT_PATH . 'public\static' . DS . 'uploads');
-	    $objWriter->save(ROOT_PATH . 'public/static'.DS.'gup'.DS.$filename);
+	    $objWriter->save(ROOT_PATH . 'public/static'.DS.'gup'.DS.$filename); 
         exit;
 
 		
