@@ -11,8 +11,7 @@ class Gup extends Controller{
 		return $this->fetch();
 	}
 	public function index(){
-
-		//证券代码，后期想要添加任意的证券代码，在此处添加即可
+		//想要爬取的证券代码
 		$codde[] = 'SZ301108';
 		$codde[] = 'SZ301019';
 		$codde[] = 'SZ300937';
@@ -83,14 +82,12 @@ class Gup extends Controller{
 		$param = '';
 		$data_array = array();
 		for ($i=0; $i < count($codde); $i++) { 
-			//基于雪球网站的股票基础信息爬虫 其实这个接口是最关键的，非常感谢https://github.com/zhangxiangliang/stock-api中的提示，其中包含了网易财经，雪球网，新浪股票，腾讯股票的接口。2022年4月12日，本人尝试过除网易财金之外的接口均能正常使用。
-			
+			//基于雪球网站的股票基础信息爬虫
 			$url = "https://stock.xueqiu.com/v5/stock/quote.json?symbol=".$codde[$i]."&extend=detail";
+			// var_dump($url);
 			$results = $this->https_request_chiwu($url,$param);
-			//基础的json数组转化
 			$results = json_decode($results,true);
-
-			//想要存数据库的，打开这里就好了，SQL文件（文件名：ms_gup.sql）自行导入，已放在共享中。，
+			//存入数据库
 			// $data = array();
 			// $data['amount'] = $results['data']['quote']['amount'];//成交额
 			// $data['amplitude'] = $results['data']['quote']['amplitude'];//振幅
@@ -126,12 +123,13 @@ class Gup extends Controller{
 			// $data['symbol'] = $results['data']['quote']['symbol'];//详细代码
 			// $data['status'] = $results['data']['market']['status'];//当日获取数据时状态：交易中,休市中,已收盘。
 			// Db::table('ms_gup')->insert($data);
-			
 			//存入二维数组 用于导出表格
+			
 			$data_array[$i]=[];
 			$data_array[$i]['symbol'] = $results['data']['quote']['symbol'];//详细代码
 			$data_array[$i]['name'] = $results['data']['quote']['name'];//名称
 			$data_array[$i]['time'] = $results['data']['quote']['time'];//获取数据时间
+			
 			$data_array[$i]['current'] = $results['data']['quote']['current'];//当前价格
 			$data_array[$i]['chg'] = $results['data']['quote']['chg'];//涨跌额
 			$data_array[$i]['percent'] = $results['data']['quote']['percent'];//涨跌幅
@@ -163,7 +161,8 @@ class Gup extends Controller{
 			$data_array[$i]['total_shares'] = $results['data']['quote']['total_shares'];//总股本
 			$data_array[$i]['status'] = $results['data']['market']['status'];//当日获取数据时状态：交易中,休市中,已收盘。
 		}
-		//引用PHPexcel 放在vendor文件夹中
+		// var_dump($data_array);
+		
 		vendor('PHPExcel.PHPExcel.Reader.Excel2007');
         vendor('PHPExcel.PHPExcel.Reader.Excel5');
 
@@ -208,7 +207,7 @@ class Gup extends Controller{
         //设置A列水平居中
         $objPHPExcel->setActiveSheetIndex(0)->getStyle('A')->getAlignment()
                     ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        //设置单元格宽度 因为这几列数值比较大，所以宽度单独设置了一下，让下载下来的表格看上去稍微友好一些
+        //设置单元格宽度
         $objPHPExcel->setActiveSheetIndex(0)->getColumnDimension('A')->setWidth(10);
         $objPHPExcel->setActiveSheetIndex(0)->getColumnDimension('B')->setWidth(10); 
         $objPHPExcel->setActiveSheetIndex(0)->getColumnDimension('C')->setWidth(20); 
@@ -220,12 +219,13 @@ class Gup extends Controller{
         for($i=0;$i<count($data_array);$i++){
            $objPHPExcel->getActiveSheet()->setCellValue('A'.($i+2),$data_array[$i]['symbol']);//详细代码
            $objPHPExcel->getActiveSheet()->setCellValue('B'.($i+2),$data_array[$i]['name']);//名称
-           $objPHPExcel->getActiveSheet()->setCellValue('C'.($i+2),date("Y-m-d-H-i-s",microtime($data_array[$i]['time'])));//获取数据时间 这里要用到microtime函数，因为是微秒级的，这个坑踩了几分钟，否则导出会报错。
+           $objPHPExcel->getActiveSheet()->setCellValue('C'.($i+2),date("Y-m-d-H-i-s",microtime($data_array[$i]['time'])));//获取数据时间
+
            $objPHPExcel->getActiveSheet()->setCellValue('D'.($i+2),$data_array[$i]['current']);//当前价格
            $objPHPExcel->getActiveSheet()->setCellValue('E'.($i+2),$data_array[$i]['chg']);//涨跌额
            $objPHPExcel->getActiveSheet()->setCellValue('F'.($i+2),$data_array[$i]['percent']);//涨跌幅
            $objPHPExcel->getActiveSheet()->setCellValue('G'.($i+2),$data_array[$i]['amplitude']."%");//振幅
-           $objPHPExcel->getActiveSheet()->setCellValue('H'.($i+2),$data_array[$i]['volume_ratio']);//量比      
+           $objPHPExcel->getActiveSheet()->setCellValue('H'.($i+2),$data_array[$i]['volume_ratio']);//量比
            $objPHPExcel->getActiveSheet()->setCellValue('I'.($i+2),$data_array[$i]['amount']);//成交额
            $objPHPExcel->getActiveSheet()->setCellValue('J'.($i+2),$data_array[$i]['open']);//今开
            $objPHPExcel->getActiveSheet()->setCellValue('K'.($i+2),$data_array[$i]['high']);//最高
@@ -251,7 +251,6 @@ class Gup extends Controller{
            $objPHPExcel->getActiveSheet()->setCellValue('AE'.($i+2),$data_array[$i]['pe_ttm']);//市盈率(TTM)
            $objPHPExcel->getActiveSheet()->setCellValue('AF'.($i+2),$data_array[$i]['total_shares']);//总股本
            $objPHPExcel->getActiveSheet()->setCellValue('AG'.($i+2),$data_array[$i]['status']);//总股本
-           
         }
         ob_end_clean();
         //7.设置保存的Excel表格名称
@@ -267,10 +266,20 @@ class Gup extends Controller{
         //生成excel文件
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         //下载文件在浏览器窗口
-        $objWriter->save('php://output');
+        // $objWriter->save('php://output');
+        //
+        $_fileName = iconv("utf-8", "gb2312", $filename);   //转码  
+
+	    // $objWriter->move(ROOT_PATH . 'public\static' . DS . 'uploads');
+	    $objWriter->save(ROOT_PATH . 'public/static'.DS.'gup'.DS.$filename);
         exit;
 
 		
+	}
+	public function test(){
+		$a = '1649748869120';
+		var_dump(date("Y-m-d-H-i-s",microtime($a)));
+
 	}
 	/**
 
@@ -322,7 +331,7 @@ class Gup extends Controller{
 	    // curl 初始化
 	    $curl = curl_init();
 	    $header = array();
-		$header[] = 'cookie: xq_a_token=f1e4545cb0f3cfb17acc98ad7a298b8106f55e86; xqat=f1e4545cb0f3cfb17acc98ad7a298b8106f55e86; xq_r_token=f5d9f889384a1b3b886c6a67f79bd30c74aaeb1c; xq_id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1aWQiOi0xLCJpc3MiOiJ1YyIsImV4cCI6MTY1MTQ0NzY3MywiY3RtIjoxNjQ5NzI4ODQ5MTIyLCJjaWQiOiJkOWQwbjRBWnVwIn0.DkFUXvdsO8awMGacyCCJM_z0M6NliJ9In3H5WnB7ZyT4uarpmOKRshtzX_4HvICoaaVAGlW-PR2DDARe6s-M4tAWXSzcvYLyNnnzq9T6iH_bIP9279iHb8wyJJymLyTMU_el2-8ldb1-YNg5Nmk7BukGdD0bu5eURDkqwVYtULfmiZqVQ9wrAgBeY-2Av9Hz9yWV4Qfk5lqb-fwIxJaJLgwJSGXphbqCwpdozPuYo5WJ6HuBIT5q-7Lo_t9GpLM7geBLxYzvLOC4IAfc6Hz31bYAeg4hja9TPW-PyEzj4ew0v75XVJ-TTqI66TTLVDsCLsdSqPByKiU2PUGXD_KBQw; u=441649728886324; Hm_lvt_1db88642e346389874251b5a1eded6e3=1649728886; device_id=5f09b7e23c597b1ea985f433e2651928; s=d11zo82ogv; Hm_lpvt_1db88642e346389874251b5a1eded6e3=1649747709';
+		$header[] = 'cookie: device_id=4d0f719c65f3f8018382725a521503cb; s=di17ef09vw; remember=1; xq_is_login=1; u=1841464012; bid=aa374004b5d3042feb368544a58fb00c_l28g6daw; xq_a_token=b8f27af98eae8105a9e47786000799b4f615444f; xqat=b8f27af98eae8105a9e47786000799b4f615444f; xq_r_token=4b3d4eca09beba8116e8c93884b836ada415318b; xq_id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1aWQiOjE4NDE0NjQwMTIsImlzcyI6InVjIiwiZXhwIjoxNjU0NDExODcwLCJjdG0iOjE2NTE4MTk4NzA0ODEsImNpZCI6ImQ5ZDBuNEFadXAifQ.UxA2eLwAjg47p7bVuQDvd4SKH-_PawlUTbdR4xz7Ku0OtML497FvjUPDGqGuhLEOzq_TRjvJYxRJpnEsxD6KDlnZWn9PtY-4liMtDSZJrq261eQwkBz8j_Xpz4lWMY75QX4t6YbMehgL2PgqejsSAg0KpfAC9KSGLBXwPihh1MblRklHFQRQxsjs6jhE21q7bMApio_pc6M8M9Sx2dONR5u1hlJOXPYr_59br45o_pHxq-0ja-XYHkgnKOWFEMpj9dxIJTGHruQCzsCQ9Yzp-jpsQkrdr4Ym5g0_Ymql7fP3NFk6Ua3YLzMwOiSFGF6acyEF6AJSaHtZWEkQAHU-Ig; Hm_lvt_1db88642e346389874251b5a1eded6e3=1651801734,1652073264,1652769673,1652865133; is_overseas=0; Hm_lpvt_1db88642e346389874251b5a1eded6e3=1652925102';
 		$header[] = 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36';
 		$header[] = 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9';
 	    // curl 设置
